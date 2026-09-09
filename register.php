@@ -72,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="password" id="confirm-password" name="confirm-password" required>
                 </div>
                 <button type="submit" id="btn">Register</button>
+                <a href="login.php" class="button" style="text-align:center; margin-top: 10px;">Back to Login</a>
             </form>
         </div>
     </div>
