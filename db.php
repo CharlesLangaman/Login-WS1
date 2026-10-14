@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$db   = 'role_system_db';
+$db   = 'role_system_db'; // Your local database name
 $user = 'root';
 $pass = '';
 $charset = 'utf8mb4';
@@ -15,6 +15,6 @@ $options = [
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);
 } catch (\PDOException $e) {
-    throw new \PDOException($e->getMessage(), (int)$e->getCode());
+    die("Database Connection Failed: " . $e->getMessage());
 }
 ?>

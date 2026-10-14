@@ -12,13 +12,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = $stmt->fetch();
 
     if ($user && password_verify($password, $user['password'])) {
-        // Store user session data
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['fullname'] = $user['fName'] . ' ' . $user['lName'];
-        $_SESSION['role'] = $user['role']; // 'user', 'staff', or 'admin'
+        $_SESSION['role'] = $user['role']; // 'admin', 'staff', or 'user'
 
-        header('Location: dashboard.php');
+        // Dynamic routing based on role
+        if ($user['role'] === 'admin') {
+            header('Location: admin/dashboard.php');
+        } elseif ($user['role'] === 'staff') {
+            header('Location: staff/dashboard.php');
+        } else {
+            header('Location: user/dashboard.php');
+        }
         exit;
     } else {
         $error = 'Invalid username or password.';
@@ -54,8 +60,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="password" id="password" name="password" required placeholder="Enter your password">
                 </div>
                 <button type="submit" id="btn">Login</button> <br>
-                <a href="register.php" class="button" style="text-align:center; margin-top: 10px;">Register</a>
+                <a href="register.php" class="button">Register</a> <br>
             </form>
+            <label>Demo Accounts:</label>
+            <ul>
+                <li><strong>Admin:</strong> admin123 / Admin123</li>
+                <li><strong>Staff:</strong> testStaff123 / staff123</li>
+                <li><strong>User:</strong> testUser123 / user123</li>
+            </ul>
         </div>
     </div>
 </body>
